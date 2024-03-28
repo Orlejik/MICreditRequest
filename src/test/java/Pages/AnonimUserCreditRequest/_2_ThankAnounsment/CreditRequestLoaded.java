@@ -10,13 +10,13 @@ public class CreditRequestLoaded extends CoreSeleniumPage {
         PageFactory.initElements(driver, this);
     }
 
-    public CreditRequestLoaded login(String login, String password){
+    public CreditRequestLoaded login(String login, String password) {
 
 
         return this;
     }
 
-    public CabinetPage cabinetPage(){
+    public CabinetPage cabinetPage() {
 
         return new CabinetPage();
     }

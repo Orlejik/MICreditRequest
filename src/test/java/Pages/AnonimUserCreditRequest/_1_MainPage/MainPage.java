@@ -2,28 +2,28 @@ package Pages.AnonimUserCreditRequest._1_MainPage;
 
 import ConfigProvider.ConfigProvider;
 import Core.CoreSeleniumPage;
-import Pages.AnonimUserCreditRequest._3_UserCabinet.UserCabinet;
+import Pages.AnonimUserCreditRequest._2_ThankAnounsment.CreditRequestLoaded;
 import org.openqa.selenium.support.PageFactory;
 
 import static Helpers.SelectBase.selectBase;
 
 public class MainPage extends CoreSeleniumPage {
 
-    public MainPage(){
+    public MainPage() {
         driver.get(ConfigProvider.URL);
         PageFactory.initElements(driver, this);
     }
 
-    public MainPage creditRequestAnonim(String nameSurname, String phoneNumber, long creditAmount, int paymentTerm, String idno, String email){
+    public MainPage creditRequestAnonim(String nameSurname, String phoneNumber, long creditAmount, int paymentTerm, String idno, String email) {
         selectBase(driver);
 
         return this;
     }
 
-     public UserCabinet userCabinet(){
+    public CreditRequestLoaded userCabinet() {
 
-        return new UserCabinet();
-     }
+        return new CreditRequestLoaded();
+    }
 
 
 }
