@@ -1,6 +1,7 @@
 package Core;
 
 import ConfigProvider.ConfigProvider;
+import Helpers.IsNetworkPersists;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
@@ -10,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.FindBy;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
@@ -18,12 +20,19 @@ abstract public class CoreSeleniumTest {
 
     @Before
     public void setup() {
-        WebDriverManager.edgedriver().setup();
-        driver = new EdgeDriver();
-        driver.manage().window().maximize();
-        driver.manage().deleteAllCookies();
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        try {
+            if (IsNetworkPersists.isConnected()) {
+                WebDriverManager.edgedriver().setup();
+                driver = new EdgeDriver();
+                driver.manage().window().maximize();
+                driver.manage().deleteAllCookies();
+                driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @After
