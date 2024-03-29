@@ -2,7 +2,7 @@ package Pages.AnonimUserCreditRequest._1_MainPage;
 
 import ConfigProvider.ConfigProvider;
 import Core.CoreSeleniumPage;
-import Helpers.SelectBase;
+import Helpers.RandomElem;
 import Pages.AnonimUserCreditRequest._2_ThankAnounsment.CreditRequestLoaded;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -55,13 +55,11 @@ public class MainPage extends CoreSeleniumPage {
     private WebElement creaditAmonut;
     @FindBy(xpath = "//*[@id=\"tab-1\"]/div[4]/div[2]/div/input")
     private WebElement creaditTerm;
-    //    @FindBy(xpath = "//*[@id=\"tab-1\"]/div[5]/label[1]/span")
-//    private WebElement persDataUsageAccesption;
     @FindBy(xpath = "//*[@id=\"tab-1\"]/div[5]/label[2]/span")
     private WebElement siteConditionAccesption;
-    @FindBy(xpath = "//*[@id=\"tab-1\"]/div[6]/div[1]/div")
-    private WebElement calculateBtn;
-    @FindBy(xpath = "//*[@id=\"tab-1\"]/div[6]/div[2]/div/span")
+    //    @FindBy(xpath = "//*[@id=\"tab-1\"]/div[6]/div[1]/div")
+//    private WebElement calculateBtn;
+    @FindBy(xpath = "//*[@id=\"tab-1\"]/div[6]/div[2]/div")
     private WebElement applyCreditBtn;
 
 
@@ -71,26 +69,74 @@ public class MainPage extends CoreSeleniumPage {
     @FindBy(xpath = "//*[@id=\"tab-3\"]/div[1]/div[3]/div/input")
     private WebElement email;
 
-    @FindBy(xpath = "//*[@id=\"tab-3\"]/div[2]/div[2]/div/div[2]/div/select")
-            private WebElement listOfOffices;
+    @FindBy(xpath = "//*[@id=\"tab-3\"]/div[2]/div[2]/div/div[2]/div")
+    private WebElement listOfOffices;
 
-    List<WebElement> offices = driver.findElements(By.xpath("//*[@id=\"tab-3\"]/div[2]/div[2]/div/div[2]/div/select/option"));
+    @FindBy(xpath = "//*[@id=\"tab-3\"]/div[3]/div/div")
+    private WebElement applyNowDTN;
 
     JavascriptExecutor js = (JavascriptExecutor) driver;
+
+
+    //    --------------------- Next Window  -------------------------------------
+    @FindBy(xpath = "//*[@id=\"tab-3\"]")
+    private WebElement applyNowBlock;
 
     public MainPage() {
         driver.get(ConfigProvider.URL);
         PageFactory.initElements(driver, this);
     }
 
-    public MainPage creditRequestAnonim(String nameSurname, String phoneNumber, long creditAmount, int paymentTerm, String idno, String email) {
-        selectBase(driver);
+    private static String getElemDisplayCssValue(WebElement elem, String attribute) {
+        return elem.getAttribute(attribute);
+    }
 
+    public MainPage creditRequestAnonim(String nameSurname, String phoneNumberValue, long creditAmount, int paymentTerm, long idno, String emailValue) {
+
+        selectBase(driver);
+        try {
+            userName.sendKeys(nameSurname);
+            phoneNumber.sendKeys(phoneNumberValue);
+            creditPurpose.click();
+            Thread.sleep(1000);
+            carOrder.click();
+            currency.click();
+            Thread.sleep(1000);
+            currencyMLD.click();
+            String emptyEmountInput = "let amountInp = document.evaluate(\"//*[@id='tab-1']/div[4]/div[1]/div/input\",document, null,XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; amountInp.value = '';";
+            js.executeScript(emptyEmountInput);
+            Thread.sleep(1000);
+            creaditAmonut.sendKeys(String.valueOf(creditAmount));
+            String emptyTermIninput = "let termInp = document.evaluate(\"//*[@id='tab-1']/div[4]/div[2]/div/input\",document, null,XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; termInp.value = '';";
+            js.executeScript((emptyTermIninput));
+            Thread.sleep(1000);
+            creaditTerm.sendKeys(String.valueOf(paymentTerm));
+            Thread.sleep(1000);
+            String clickCheckBox2 = "let elem2 = document.evaluate(\"//*[@id='tab-1']/div[5]/label[2]/span\",document, null,XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;elem2.click();";
+            js.executeScript(clickCheckBox2);
+            Thread.sleep(1000);
+            applyCreditBtn.click();
+            String mainBlock = getElemDisplayCssValue(userDataForCreditBlock, "aria-hidden");
+            String calculateBlock = getElemDisplayCssValue(applyNowBlock, "aria-hidden");
+
+            if (calculateBlock.equals("false") && mainBlock.equals("true")) {
+                List<WebElement> offices = driver.findElements(By.xpath("//*[@id=\"tab-3\"]/div[2]/div[2]/div/div[2]/div/div/ul/li"));
+                idno_idnp.sendKeys(String.valueOf(idno));
+                Thread.sleep(1000);
+                email.sendKeys(emailValue);
+                Thread.sleep(1000);
+                listOfOffices.click();
+                Thread.sleep(500);
+                offices.get(RandomElem.getRandomElem(offices)).click();
+            }
+        } catch (InterruptedException ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
         return this;
     }
 
     public CreditRequestLoaded userCabinet() {
-
+        js.executeScript("let elem = document.evaluate(\"//*[@id='tab-3']/div[3]/div/div\",document, null,XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;elem.style.backgroundColor = \"blue\";");
         return new CreditRequestLoaded();
     }
 

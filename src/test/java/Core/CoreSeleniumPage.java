@@ -1,6 +1,5 @@
 package Core;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 
 abstract public class CoreSeleniumPage {

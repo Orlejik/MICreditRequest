@@ -28,6 +28,7 @@ abstract public class CoreSeleniumTest {
                 driver.manage().deleteAllCookies();
                 driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
                 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+                CoreSeleniumPage.setWebDriver(driver);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

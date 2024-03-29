@@ -13,6 +13,7 @@ public interface ConfigProvider {
     }
 
     String URL = readConfig().getString("url");
+    String TEMP_URL = readConfig().getString("tempUrl");
     String USERNAME = readConfig().getString("UserData.AnonimUser.CreditData.username");
     String PHONENUMBER = readConfig().getString("UserData.AnonimUser.CreditData.phoneNumber");
     int CREDITAMOUNT = readConfig().getInt("UserData.AnonimUser.CreditData.creditAmount");

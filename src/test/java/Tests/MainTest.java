@@ -1,5 +1,6 @@
 package Tests;
 
+import Core.CoreSeleniumTest;
 import Tests.UnitTests.AnonimCreditRequest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -8,5 +9,5 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
     AnonimCreditRequest.class,
 })
-public class MainTest {
+public class MainTest extends CoreSeleniumTest {
 }
