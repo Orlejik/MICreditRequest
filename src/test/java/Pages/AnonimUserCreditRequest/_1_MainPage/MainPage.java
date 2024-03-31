@@ -38,9 +38,13 @@ public class MainPage extends CoreSeleniumPage {
     private WebElement ownNeeds;
     @FindBy(xpath = "//*[@id=\"tab-1\"]/div[2]/div[2]/div/div/div/div/ul/li[6]")
     private WebElement lessTan20K;
+
+//    List<WebElement> listOfCreditPurpose = driver.findElements(By.xpath("//*[@id=\"tab-1\"]/div[2]/div[2]/div/div/div/div/ul/li"));
     //    ------------------ Credit Purpose DropDown list elements-------------------------
     @FindBy(xpath = "//*[@id=\"tab-1\"]/div[2]/div[3]/div/div/div/p")
     private WebElement currency;
+
+//    List<WebElement> listOfCurrency = driver.findElements(By.xpath("//*[@id=\"tab-1\"]/div[2]/div[3]/div/div/div/div/ul/li"));
     //    ------------------ Currency DropDown list elements-------------------------
     @FindBy(xpath = "//*[@id=\"tab-1\"]/div[2]/div[3]/div/div/div/div/ul/li[1]")
     private WebElement currencyMLD;
@@ -95,14 +99,32 @@ public class MainPage extends CoreSeleniumPage {
 
         selectBase(driver);
         try {
+
             userName.sendKeys(nameSurname);
             phoneNumber.sendKeys(phoneNumberValue);
             creditPurpose.click();
             Thread.sleep(1000);
-            carOrder.click();
+            List<WebElement> listOfCreditPurpose = driver.findElements(By.xpath("//*[@id=\"tab-1\"]/div[2]/div[2]/div/div/div/div/ul/li"));
+
+            Thread.sleep(1000);
+            listOfCreditPurpose.get(RandomElem.getRandomElem(listOfCreditPurpose)).click();
+            Thread.sleep(1000);
+//            carOrder.click();
+            System.out.println("--------------- CREDIT PURPOSE ----------------");
+
+            for(WebElement creditP : listOfCreditPurpose){
+                System.out.println(creditP);
+            }
+
             currency.click();
             Thread.sleep(1000);
-            currencyMLD.click();
+            List<WebElement> listOfCurrency = driver.findElements(By.xpath("//*[@id=\"tab-1\"]/div[2]/div[3]/div/div/div/div/ul/li"));
+            listOfCurrency.get(RandomElem.getRandomElem(listOfCurrency)).click();
+            System.out.println("--------------- CURRENCY ----------------");
+
+            for (WebElement currencyL: listOfCurrency){
+                System.out.println(currencyL);
+            }
             String emptyEmountInput = "let amountInp = document.evaluate(\"//*[@id='tab-1']/div[4]/div[1]/div/input\",document, null,XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; amountInp.value = '';";
             js.executeScript(emptyEmountInput);
             Thread.sleep(1000);
@@ -121,6 +143,8 @@ public class MainPage extends CoreSeleniumPage {
 
             if (calculateBlock.equals("false") && mainBlock.equals("true")) {
                 List<WebElement> offices = driver.findElements(By.xpath("//*[@id=\"tab-3\"]/div[2]/div[2]/div/div[2]/div/div/ul/li"));
+
+                System.out.println("----------------- OFFICES ------------------------- ");
                 idno_idnp.sendKeys(String.valueOf(idno));
                 Thread.sleep(1000);
                 email.sendKeys(emailValue);

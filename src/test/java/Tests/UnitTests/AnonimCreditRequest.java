@@ -11,12 +11,9 @@ import org.openqa.selenium.support.FindBy;
 
 public class AnonimCreditRequest extends CoreSeleniumTest {
 
-//    @FindBy(xpath = )
-//    WebElement
-
     @DisplayName("First test (creation credit request from anonymous user)")
     @Test
-    public void testTest() {
+    public void testTest() throws InterruptedException {
 
         String userFirstLastName = ConfigProvider.USERNAME;
         String userPhoneNumber = ConfigProvider.PHONENUMBER;
@@ -32,6 +29,6 @@ public class AnonimCreditRequest extends CoreSeleniumTest {
         mainPage.creditRequestAnonim(userFirstLastName, userPhoneNumber, creditAmount, paymentsTerm, idnoIdnp, email)
                 .userCabinet()
                 .userCabinet(userFLName, userPassword)
-                .cabinetPage();
+                .cabinetPage().checkMyRequestsOfCredit();
     }
 }
