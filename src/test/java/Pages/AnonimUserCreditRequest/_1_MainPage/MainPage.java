@@ -160,7 +160,8 @@ public class MainPage extends CoreSeleniumPage {
     }
 
     public CreditRequestLoaded userCabinet() {
-        js.executeScript("let elem = document.evaluate(\"//*[@id='tab-3']/div[3]/div/div\",document, null,XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;elem.style.backgroundColor = \"blue\";");
+//        js.executeScript("let elem = document.evaluate(\"//*[@id='tab-3']/div[3]/div/div\",document, null,XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;elem.style.backgroundColor = \"blue\";");
+        js.executeScript("let elem = document.evaluate(\"//*[@id='tab-3']/div[3]/div/div\",document, null,XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;elem.click();");
         return new CreditRequestLoaded();
     }
 

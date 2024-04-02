@@ -30,7 +30,9 @@ public class CreditRequestFfromCabinet extends CoreSeleniumTest {
                 .userCabiet()
                 .applyNowCredit()
                 .creditRequestFromCabinet()
-                .sendCreditRequest(creditAmount,paymentsTerm,userFirstName, userSurname, phonenumber, imagePath, carDescr, carTehnPasspt);
+                .sendCreditRequest(creditAmount,paymentsTerm,userFirstName, userSurname, phonenumber, imagePath, carDescr, carTehnPasspt)
+                .checkRequests()
+                .checkMyRequests();
     }
 
 }
